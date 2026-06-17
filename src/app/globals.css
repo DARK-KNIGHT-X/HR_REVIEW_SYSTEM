@@ -1,26 +1,208 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* =========================
+   BASE DARK THEME
+========================= */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    @apply bg-[#070B14] text-gray-100 font-sans;
+  }
+
+  ::selection {
+    @apply bg-indigo-500 text-white;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  button {
+    @apply transition;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =========================
+   CARD SYSTEM
+========================= */
+
+@layer components {
+
+  .card {
+    @apply bg-[#0F172A] border border-gray-800 rounded-2xl shadow-lg p-5;
+  }
+
+  .card:hover {
+    @apply border-indigo-500/40 shadow-xl;
+  }
+
+  /* INPUT + SELECT FIX (IMPORTANT FOR YOUR ISSUE) */
+  .input,
+  select {
+    @apply w-full px-3 py-2 rounded-lg bg-[#0B1220] border border-gray-700 text-white;
+  }
+
+  select option {
+    background: #0B1220;
+    color: white;
+  }
+
+  .input:focus,
+  select:focus {
+    @apply outline-none border-indigo-500 ring-2 ring-indigo-500/30;
+  }
+
+  /* LABEL */
+  label {
+    @apply text-gray-300;
+  }
+
+  /* BUTTONS */
+  .btn-primary {
+    @apply bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium;
+  }
+
+  .btn-primary:hover {
+    @apply bg-indigo-700;
+  }
+
+  .btn-outline {
+    @apply border border-indigo-500 text-indigo-400 px-4 py-2 rounded-lg;
+  }
+
+  .btn-outline:hover {
+    @apply bg-indigo-600 text-white;
+  }
+
+  /* 🚀 SUBMIT BUTTON FIX (YOUR ISSUE FIXED HERE) */
+  .btn-submit {
+    @apply w-full relative px-4 py-3 rounded-xl font-semibold text-white;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.35);
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+  }
+
+  .btn-submit:active {
+    transform: scale(0.98);
+  }
+
+  .btn-submit:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  /* SIDEBAR (20 EMPLOYEES FIX) */
+  .sidebar {
+    @apply bg-[#0F172A] border border-gray-800 rounded-2xl p-3;
+  }
+
+  .sidebar-title {
+    @apply text-xs uppercase tracking-wider text-gray-400 px-2 py-2;
+  }
+
+  .sidebar-item {
+    @apply w-full text-left px-3 py-2 rounded-lg text-sm flex justify-between items-center;
+    @apply text-gray-300 hover:bg-[#1E293B] hover:text-white transition;
+  }
+
+  .sidebar-item-active {
+    @apply bg-indigo-600 text-white;
+  }
+
+  .sidebar-dot {
+    @apply w-2 h-2 rounded-full bg-gray-500;
+  }
+
+  .sidebar-dot-active {
+    @apply bg-green-400;
+  }
+}
+
+/* =========================
+   GEM SYSTEM (RATINGS)
+========================= */
+
+@layer utilities {
+
+  .gem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    font-weight: 600;
+    font-size: 13px;
+    color: white;
+    clip-path: polygon(
+      50% 0%,
+      93% 25%,
+      93% 75%,
+      50% 100%,
+      7% 75%,
+      7% 25%
+    );
+  }
+
+  .gem-1, .gem-2 { background: #ef4444; }
+  .gem-3 { background: #f59e0b; }
+  .gem-4, .gem-5 { background: #10b981; }
+  .gem-0 { background: #334155; color: #94a3b8; }
+}
+
+/* =========================
+   TIMELINE
+========================= */
+
+.timeline {
+  position: relative;
+  padding-left: 28px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #6366f1, #1f2937);
+}
+
+.timeline-item {
+  margin-bottom: 18px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -20px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #6366f1;
+}
+
+/* =========================
+   SCROLLBAR (NICE UI)
+========================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
 }
